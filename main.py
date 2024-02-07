@@ -1,6 +1,8 @@
 from os import system
 from time import sleep
 
+game_board  = [' '] * 10
+
 def clear_output():
     sleep(5)
     system('cls')
@@ -12,7 +14,6 @@ def display_board(board):
     top_and_bottom = "-------------------"
     pretty_lines = "|-----|-----|-----|"
 
-    clear_output()
     print(top_and_bottom)
     for i in range(1, 10, 3):
         print('|  ' + board[i] + '  |  ' + board[i+1] + '  |  ' + board[i+2] + '  |  ')
@@ -43,9 +44,11 @@ def player_input():
 
 def update_board():
 
-    #Place their input on the board.
+    acceptable_input = list((range(1,11)))
+    if acceptable_input in acceptable_input:
+        game_board.insert()
 
-    pass
+    
 
 def game_state():
 
@@ -61,11 +64,10 @@ def replay():
 
 def main():
     
-    #Repeat c and d until the game has been won or tied.
+    # display_board(game_board)
+    # player_one_marker, player_two_marker = player_input()
+    update_board()
     
     pass
 
-
-
-
-#player_one_marker, player_two_marker = player_input()
+main()
