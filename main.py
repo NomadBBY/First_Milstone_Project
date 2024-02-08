@@ -1,19 +1,16 @@
-from os import system
 from time import sleep
-
-game_board  = [' '] * 10
+from os import system
+from random import randint
 
 def clear_output():
-    sleep(5)
     system('cls')
 
 def display_board(board):
 
-    #We need to print a board.
-
     top_and_bottom = "-------------------"
     pretty_lines = "|-----|-----|-----|"
 
+    clear_output()
     print(top_and_bottom)
     for i in range(1, 10, 3):
         print('|  ' + board[i] + '  |  ' + board[i+1] + '  |  ' + board[i+2] + '  |  ')
@@ -22,52 +19,75 @@ def display_board(board):
     print(top_and_bottom)
 
 def player_input():
-
-    #Take in player input.
-
-    player_one = None
-    player_two = None
-
+    
     marker = ''
 
-    while marker != 'X' and marker != 'O':
-        marker = input("Player 1, chose X or O : ")
+    while not (marker == "X" or marker == "O"):
+        marker = input("Player One: Chose X or O: ").upper()
 
-    player_one = marker
-
-    if player_one == 'X':
-        player_two = 'O'
+    if marker == "X":
+        return ("X", "O")
     else:
-        player_two = "X"
+        return ("O", "X")
 
-    return (player_one, player_two)
-
-def update_board():
-
-    acceptable_input = list((range(1,11)))
-    if acceptable_input in acceptable_input:
-        game_board.insert()
-
+def place_marker(board, marker, position):
     
+    board[position] = marker
 
-def game_state():
+def win_check(board, mark):
 
-    #Check if the game is won,tied, lost, or ongoing.
+    board_=[el==mark for el in board]
+    if(any([
+        all(board_[1:4]),
+        all(board_[4:7]),
+        all(board_[7:10]),
+        all(board_[slice(1,8,3)]),
+        all(board_[slice(2,9,3)]),
+        all(board_[slice(3,10,3)]),
+        all(board_[slice(1,10,4)]),
+        all(board_[slice(3,8,2)])
+    ])):
+        return True
+    return False
 
-    pass
+def chose_first():
+
+    coinflip = randint(0,1)
+    
+    if coinflip == 0:
+        return "Player 1"
+    else:
+        return "Player 2"
+
+def space_check(board, position):
+
+    return board[position] == " "
+
+def full_board_check(board):
+
+    for i in range(1,10):
+        if space_check(board, i):
+            return False 
+        
+    return True
+
+def player_choice(board):
+
+    position = 0
+
+    while position not in list(range(1,10)) or not space_check(board, position):
+        position = int(input("Choose a position: (1-9) :"))
+
+    return position
 
 def replay():
-
-    #Ask if players want to play again.
-
-    pass
-
-def main():
     
-    # display_board(game_board)
-    # player_one_marker, player_two_marker = player_input()
-    update_board()
-    
-    pass
+    choice = input("Play again? Enter Yes or No").capitalize()
 
-main()
+    return choice == "Yes"
+
+test_board = [' '] * 10
+# display_board(test_board)
+# player1, player2 = player_input()
+display_board(test_board)
+print((win_check(test_board, "X")))
