@@ -82,12 +82,70 @@ def player_choice(board):
 
 def replay():
     
-    choice = input("Play again? Enter Yes or No").capitalize()
+    choice = input("Play again? Enter Yes or No : ").capitalize()
 
     return choice == "Yes"
 
-test_board = [' '] * 10
-# display_board(test_board)
-# player1, player2 = player_input()
-display_board(test_board)
-print((win_check(test_board, "X")))
+def main():
+
+    print("Welcome to Tic Tac Toe!")
+    print()
+
+    while True:
+
+        the_board = [' '] * 10
+        player1_marker, player2_marker = player_input()
+
+        turn = chose_first()
+        print(turn + " Will go first")
+
+        play_game = input("Are you ready to play? : (Yes/No) ").lower()
+
+        if play_game == "yes":
+            game_on = True
+        else:
+            game_on = False
+
+        while game_on:
+
+            if turn == "Player 1":
+
+                display_board(the_board)
+                print("It's player One turn!")
+                position = player_choice(the_board)
+                place_marker(the_board, player1_marker,position)
+
+                if win_check(the_board, player1_marker):
+                    display_board(the_board)
+                    print("Player 1 has won!")
+                    game_on = False
+                else:
+                    if full_board_check(the_board):
+                        display_board(the_board)
+                        print("The game is a tie!")
+                        game_on = False
+                    else:
+                        turn = "Player 2"
+            else:
+
+                display_board(the_board)
+                print("It's player Two turn!")
+                position = player_choice(the_board)
+                place_marker(the_board, player2_marker,position)
+
+                if win_check(the_board, player2_marker):
+                    display_board(the_board)
+                    print("Player 2 has won!")
+                    game_on = False
+                else:
+                    if full_board_check(the_board):
+                        display_board(the_board)
+                        print("The game is a tie!")
+                        game_on = False
+                    else:
+                        turn = "Player 1"
+
+        if not replay():
+            break
+
+main()
