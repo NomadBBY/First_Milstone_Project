@@ -1,0 +1,20 @@
+def clear_output():
+
+    from os import system
+    system('cls')
+
+def display_board(board):
+
+    print("-----------")
+    for row in range(9, 0, -3):
+        print(f" {board[row - 3]} | {board[row - 2]} | {board[row - 1]} ")
+        if row > 3:
+            print("---|---|---")
+    print("-----------")
+
+
+
+test_board = range(1,10)
+display_board(test_board)
+
+
