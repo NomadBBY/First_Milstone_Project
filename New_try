@@ -6,9 +6,9 @@ def clear_output():
 def display_board(board):
 
     print("-----------")
-    for row in range(10, 1, -3):
-        print(f" {board[row - 3]} | {board[row - 2]} | {board[row - 1]} ")
-        if row > 4:
+    for index in range(10, 1, -3):
+        print(f" {board[index - 3]} | {board[index - 2]} | {board[index - 1]} ")
+        if index > 4:
             print("---|---|---")
     print("-----------")
 
@@ -35,24 +35,61 @@ def place_marker(board, marker, position):
 
 def win_check(board, mark):
 
-    for index in range(1, 4): #1 - 3
-        if board[index] != mark:
+    #Rows
+    for row in range(1, 4): #1 - 3
+        if board[row] != mark:
             return False
+        else:
+            return True
 
-    for index in range(4, 7): #4 - 6
-        if board[index] != mark:
+    for row in range(4, 7): #4 - 6
+        if board[row] != mark:
             return False
+        else:
+            return True
 
-    for index in range(7, 10): #7 - 9
-        if board[index] != mark:
+    for row in range(7, 10): #7 - 9
+        if board[row] != mark:
             return False
+        else:
+            return True
+        
+    #Cols
+    for col in range(1, 8, 3): #1, 4, 7
+        if board[col] != mark:
+            return False
+        else:
+            return True
+
+    for col in range(2,9,3): #2, 5, 8
+        if board[col] != mark:
+            return False  
+        else:
+            return True      
+
+    for col in range(3,10,3): #3, 6, 9
+        if board[col] != mark:
+            return False  
+        else:
+            return True
+        
+    #diagonal
+    for diagonal in range(1, 9, 4):
+        if board[diagonal] != mark:
+            return False  
+        else:
+            return True
     
-    return True
+    for diagonal in range(3, 9, 2):
+        if board[diagonal] != mark:
+            return False  
+        else:
+            return True
 
 
+test_board = ['#','X','0','X','O','X','O','O','O','X']
 
-test_board = ['#','X','O','X','O','X','O','X','O','X']
-
+# test_board = list(range(10))
 # player_one, player_two = player_input()
 
 # position = int(input("Enter where would you like to put a marker (1-9): "))
@@ -60,6 +97,5 @@ test_board = ['#','X','O','X','O','X','O','X','O','X']
 # position = (position - 1)
 
 display_board(test_board)
-print()
-print(win_check(test_board,'X'))
+print(win_check(test_board, "X"))
 
