@@ -1,6 +1,8 @@
+import random
+from os import system
+
 def clear_output():
 
-    from os import system
     system('cls')
 
 def display_board(board):
@@ -86,6 +88,14 @@ def win_check(board, mark):
         else:
             return True
 
+def choose_first():
+
+    coinflip = random.randint(0,1)
+    
+    if coinflip == 0:
+        return "Player 1"
+    else:
+        return "Player 2"
 
 test_board = ['#','X','0','X','O','X','O','O','O','X']
 
@@ -98,4 +108,5 @@ test_board = ['#','X','0','X','O','X','O','O','O','X']
 
 display_board(test_board)
 print(win_check(test_board, "X"))
+print(choose_first())
 
