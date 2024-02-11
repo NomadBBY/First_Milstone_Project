@@ -107,8 +107,23 @@ def full_board_check(board):
         return False
     return True
 
+def player_choice(board):
+
+    position = 0
+
+    while position not in list(range(1,10)) or not space_check(board, position):
+        position = int(input("Choose a position: (1-9) :"))
+
+    return position
+
+def replay():
+        
+    choice = input("Play again? Enter Yes or No : ").capitalize()
+
+    return choice == "Yes"
 
 test_board = [' '] * 10
+test_board[1] = "X"
 
 # test_board = list(range(10))
 # player_one, player_two = player_input()
@@ -117,7 +132,9 @@ test_board = [' '] * 10
 # position = 9
 # position = (position - 1)
 
+
+player_choice(test_board)
 display_board(test_board)
-print(space_check(test_board, 9))
-print(full_board_check(test_board))
+# print(space_check(test_board, 9))
+# print(full_board_check(test_board))
 
