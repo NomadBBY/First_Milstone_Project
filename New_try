@@ -97,6 +97,11 @@ def choose_first():
     else:
         return "Player 2"
 
+def space_check(board, position):
+    
+    return board[position] == " "
+
+
 test_board = ['#','X','0','X','O','X','O','O','O','X']
 
 # test_board = list(range(10))
@@ -107,6 +112,5 @@ test_board = ['#','X','0','X','O','X','O','O','O','X']
 # position = (position - 1)
 
 display_board(test_board)
-print(win_check(test_board, "X"))
-print(choose_first())
+print(space_check(test_board, 9))
 
