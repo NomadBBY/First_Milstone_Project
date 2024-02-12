@@ -36,57 +36,23 @@ def place_marker(board, marker, position):
     board[position] = marker
 
 def win_check(board, mark):
-
-    #Rows
-    for row in range(1, 4): #1 - 3
-        if board[row] != mark:
-            return False
-        else:
+    # Check rows
+    for row in range(0, 7, 3):  # 0, 3, 6
+        if board[row] == board[row + 1] == board[row + 2] == mark:
             return True
 
-    for row in range(4, 7): #4 - 6
-        if board[row] != mark:
-            return False
-        else:
+    # Check columns
+    for col in range(3):  # 0, 1, 2
+        if board[col] == board[col + 3] == board[col + 6] == mark:
             return True
 
-    for row in range(7, 10): #7 - 9
-        if board[row] != mark:
-            return False
-        else:
-            return True
-        
-    #Cols
-    for col in range(1, 8, 3): #1, 4, 7
-        if board[col] != mark:
-            return False
-        else:
-            return True
+    # Check diagonals
+    if board[0] == board[4] == board[8] == mark:
+        return True
+    if board[2] == board[4] == board[6] == mark:
+        return True
 
-    for col in range(2,9,3): #2, 5, 8
-        if board[col] != mark:
-            return False  
-        else:
-            return True      
-
-    for col in range(3,10,3): #3, 6, 9
-        if board[col] != mark:
-            return False  
-        else:
-            return True
-        
-    #diagonal
-    for diagonal in range(1, 9, 4):
-        if board[diagonal] != mark:
-            return False  
-        else:
-            return True
-    
-    for diagonal in range(3, 9, 2):
-        if board[diagonal] != mark:
-            return False  
-        else:
-            return True
+    return False
 
 def choose_first():
 
@@ -122,19 +88,66 @@ def replay():
 
     return choice == "Yes"
 
-test_board = [' '] * 10
-test_board[1] = "X"
+def main():
 
-# test_board = list(range(10))
-# player_one, player_two = player_input()
+    print("Welcome to Tic Tac Toe!")
+    print()
 
-# position = int(input("Enter where would you like to put a marker (1-9): "))
-# position = 9
-# position = (position - 1)
+    while True:
 
+        the_board = [' '] * 10
+        player1_marker, player2_marker = player_input()
 
-player_choice(test_board)
-display_board(test_board)
-# print(space_check(test_board, 9))
-# print(full_board_check(test_board))
+        turn = choose_first()
+        print(turn + " Will go first")
 
+        play_game = input("Are you ready to play? : (Yes/No) ").lower()
+
+        if play_game == "yes":
+            game_on = True
+        else:
+            game_on = False
+
+        while game_on:
+
+            if turn == "Player 1":
+
+                display_board(the_board)
+                print("It's player One turn!")
+                position = player_choice(the_board)
+                place_marker(the_board, player1_marker,position)
+
+                if win_check(the_board, player1_marker):
+                    display_board(the_board)
+                    print("Player 1 has won!")
+                    game_on = False
+                else:
+                    if full_board_check(the_board):
+                        display_board(the_board)
+                        print("The game is a tie!")
+                        game_on = False
+                    else:
+                        turn = "Player 2"
+            else:
+
+                display_board(the_board)
+                print("It's player Two turn!")
+                position = player_choice(the_board)
+                place_marker(the_board, player2_marker,position)
+
+                if win_check(the_board, player2_marker):
+                    display_board(the_board)
+                    print("Player 2 has won!")
+                    game_on = False
+                else:
+                    if full_board_check(the_board):
+                        display_board(the_board)
+                        print("The game is a tie!")
+                        game_on = False
+                    else:
+                        turn = "Player 1"
+
+        if not replay():
+            break
+
+main()
